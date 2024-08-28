@@ -1,0 +1,189 @@
+set $background #000000
+set $color_urgent #fb4934
+set $text_color #ffffff
+set $title_bg_unfocused #202020
+set $title_outline_active #7BB2D9
+set $title_outline_unfocused #202020
+
+client.background       $background
+client.focused          $title_outline_active    $background         $text_color   $title_outline_active $title_outline_active
+client.focused_inactive $title_outline_unfocused $background         $text_color   $text_color           $title_outline_unfocused
+client.unfocused        $title_outline_unfocused $title_bg_unfocused $text_color   $title_outline_active
+client.urgent           $color_urgent            $color_urgent       $color_urgent $color_urgent         $color_urgent
+
+gaps inner 0
+gaps outer 0
+default_border pixel 0
+
+bar {
+    swaybar_command waybar
+}
+set $mod Mod4
+set $alt Mod1
+
+
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exec $HOME/.config/sway/exit.sh
+
+set $lock swaylock -c 550000
+
+exec swayidle -w \
+    timeout 600 $lock \
+    timeout 570 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+    before-sleep $lock
+
+set $lock_screen exec bash ~/.config/sway/lock_screen.sh
+bindsym $mod+Escape exec $lock_screen
+
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+j focus down
+bindsym $mod+h focus left
+bindsym $mod+l focus right
+bindsym $mod+k focus up
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+floating_modifier $mod normal
+
+mode "resize" {
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    bindsym h resize shrink width 10px
+    bindsym j resize grow height 10px
+    bindsym k resize shrink height 10px
+    bindsym l resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+## Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+
+## Layouts
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+f floating toggle
+bindsym $mod+tab focus mode_toggle
+bindsym $mod+a focus parent
+
+## Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+## Hardware
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86MonBrightnessDown exec light -U 5
+bindsym XF86MonBrightnessUp exec light -A 5
+
+#===========================#
+#  Application Shortcuts    #
+#===========================#
+
+set $menu wofi --show drun -i | xargs swaymsg exec --
+bindsym $mod+shift+b exec firefox
+bindsym $mod+F1 exec thunar
+set $term alacritty
+bindsym $mod+t exec $term
+bindsym $mod+q kill
+bindsym $mod+space exec $menu
+bindsym $mod+d exec $menu
+
+#===========================#
+#           Misc            #
+#===========================#
+
+include /etc/sway/config-vars.d/*
+include /etc/sway/config.d/*
+
+output XWAYLAND0 {
+    resolution 1440x1080
+    scale 1
+    position 250,1080
+}
+
+output WAYLAND2 {
+    resolution 1920x1080
+    scale 1
+    position 0,0
+}
+output DP-1 {
+    resolution 1920x1080
+    scale 1
+    position 0,0
+}
+
+output eDP-1 { 
+    position 250,1080
+}
+
+input * {
+    xkb_layout es
+    xkb_options "grp:alt_shift_toggle"
+}
+exec swaybg -c "#000000" -o "*"
+
+# Screenshot a window
+bindsym $mod+Print exec sway-screenshot -m window
+# Screenshot a monitor
+bindsym Print exec sway-screenshot -m output
+# Screenshot a region
+bindsym $mod+Shift+Print exec sway-screenshot -m region
+set $SWAY_SCREENSHOT_DIR ~/Pictures
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+}

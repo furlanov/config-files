@@ -1,0 +1,39 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 10,
+    "spacing": 1,
+    "margin-top": 0,
+    "margin-bottom": 0,
+
+    "modules-center": [""],
+    "modules-left":   ["sway/workspaces"],
+    "modules-right":  ["network", "battery", "clock"],
+
+    "network": {
+        "format-wifi": " {signalStrength}%",
+        "format-ethernet": "eth",
+        "tooltip-format": "{ifname}: {gwaddr}",
+        "format-linked": "{ifname} (No IP)",
+        "format-disconnected": "⚠",
+        "format-alt": "{ipaddr}/{cidr}",
+        "on-click-right": "bash ~/.config/rofi/wifi_menu/rofi_wifi_menu"
+    },
+
+    "battery": {
+        "format": "{capacity}%",
+    },
+
+    "clock": {
+        "timezone": "Europe/Ljubljana",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%Y-%m-%d}"
+    },
+
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "format": "{name}"
+    },
+}
+
