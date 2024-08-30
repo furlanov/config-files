@@ -21,7 +21,7 @@
     },
 
     "battery": {
-        "format": "{capacity}%",
+        "format": "{capacity}%"
     },
 
     "clock": {
@@ -34,6 +34,6 @@
         "disable-scroll": true,
         "all-outputs": false,
         "format": "{name}"
-    },
+    }
 }
 

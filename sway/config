@@ -17,10 +17,10 @@ default_border pixel 0
 
 bar {
     swaybar_command waybar
-}
+    }
+
 set $mod Mod4
 set $alt Mod1
-
 
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec $HOME/.config/sway/exit.sh
@@ -35,7 +35,6 @@ exec swayidle -w \
 
 set $lock_screen exec bash ~/.config/sway/lock_screen.sh
 bindsym $mod+Escape exec $lock_screen
-
 
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -75,7 +74,6 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-## Workspaces
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -106,7 +104,9 @@ bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 
-## Layouts
+bindsym $mod+Tab workspace next_on_output
+bindsym $mod+Shift+Tab workspace prev_on_output
+
 bindsym $mod+b splith
 bindsym $mod+v splitv
 bindsym $mod+s layout stacking
@@ -114,23 +114,16 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen
 bindsym $mod+Shift+f floating toggle
-bindsym $mod+tab focus mode_toggle
 bindsym $mod+a focus parent
 
-## Scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
-## Hardware
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86MonBrightnessDown exec light -U 5
 bindsym XF86MonBrightnessUp exec light -A 5
-
-#===========================#
-#  Application Shortcuts    #
-#===========================#
 
 set $menu wofi --show drun -i | xargs swaymsg exec --
 bindsym $mod+shift+b exec firefox
@@ -140,10 +133,6 @@ bindsym $mod+t exec $term
 bindsym $mod+q kill
 bindsym $mod+space exec $menu
 bindsym $mod+d exec $menu
-
-#===========================#
-#           Misc            #
-#===========================#
 
 include /etc/sway/config-vars.d/*
 include /etc/sway/config.d/*
@@ -173,15 +162,13 @@ input * {
     xkb_layout es
     xkb_options "grp:alt_shift_toggle"
 }
+
 exec swaybg -c "#000000" -o "*"
 
-# Screenshot a window
 bindsym $mod+Print exec sway-screenshot -m window
-# Screenshot a monitor
 bindsym Print exec sway-screenshot -m output
-# Screenshot a region
 bindsym $mod+Shift+Print exec sway-screenshot -m region
-set $SWAY_SCREENSHOT_DIR ~/Pictures
+
 input type:touchpad {
     tap enabled
     natural_scroll enabled
