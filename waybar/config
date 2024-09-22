@@ -11,7 +11,7 @@
     "modules-right":  ["network", "battery", "clock"],
 
     "network": {
-        "format-wifi": " {signalStrength}%",
+        "format-wifi": "{signalStrength}%",
         "format-ethernet": "eth",
         "tooltip-format": "{ifname}: {gwaddr}",
         "format-linked": "{ifname} (No IP)",
