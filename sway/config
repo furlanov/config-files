@@ -138,27 +138,6 @@ bindsym $mod+d exec $menu
 include /etc/sway/config-vars.d/*
 include /etc/sway/config.d/*
 
-output XWAYLAND0 {
-    resolution 1440x1080
-    scale 1
-    position 250,1080
-}
-
-output WAYLAND2 {
-    resolution 1920x1080
-    scale 1
-    position 0,0
-}
-output DP-1 {
-    resolution 1920x1080
-    scale 1
-    position 0,0
-}
-
-output eDP-1 { 
-    position 250,1080
-}
-
 input * {
     xkb_layout es
     xkb_options "grp:alt_shift_toggle"
@@ -175,3 +154,9 @@ input type:touchpad {
     natural_scroll enabled
     middle_emulation enabled
 }
+
+output eDP-1 {
+    resolution 2560x1600
+    scale 1.5
+}
+
